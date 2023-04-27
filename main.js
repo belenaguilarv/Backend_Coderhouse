@@ -1,0 +1,2 @@
+
+const ProductManager = require('./productManager');
