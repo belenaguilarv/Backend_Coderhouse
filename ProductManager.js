@@ -84,11 +84,49 @@ class ProductManager{
       de lo contrario retorna null.
      */
     getProductById(id){
-      const product = this.products.find(value => value.id === product.id);
+      const product = this.products.find(value => value.id === id);
       if(product)
         return product;
       else
-      console.error(`El producto con id: ${product.id} no fue encontrado`);
+      console.error(`El producto con id: ${id} no fue encontrado`);
       return null;
     }
-}
+  }
+
+
+//  --  Testing -- 
+
+const productManager = new ProductManager();
+
+//console.log(productManager.getProducts());
+
+// Agregar producto
+productManager.addProduct({
+  title: "producto prueba",
+  description: "Este es un producto prueba",
+  price: 200,
+  thumbnail: "Sin imagen",
+  code: "abc123",
+  stock: 25,
+});
+
+
+
+// Agregar producto
+productManager.addProduct({
+  title: "producto prueba 1",
+  description: "Este es un producto prueba",
+  price: 200,
+  thumbnail: "Sin imagen",
+  code: "423",
+  stock: 25,
+});
+
+
+//console.log(productManager.getProducts());
+
+// Obtener producto por id (debería devolver el producto agregado)
+//console.log(productManager.getProductById(1));
+
+// Obtener producto por id inexistente (debería arrojar un error)
+console.log(productManager.getProductById(2));
