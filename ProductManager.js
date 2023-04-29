@@ -110,16 +110,14 @@ productManager.addProduct({
   stock: 25,
 });
 
-
-
 // Agregar producto
 productManager.addProduct({
   title: "producto prueba 1",
-  description: "Este es un producto prueba",
-  price: 200,
+  description: "Este es otro producto prueba",
+  price: 100,
   thumbnail: "Sin imagen",
   code: "423",
-  stock: 25,
+  stock: 20,
 });
 
 
