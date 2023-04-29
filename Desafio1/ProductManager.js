@@ -97,30 +97,11 @@ class ProductManager{
 //  --  Testing -- 
 
 const productManager = new ProductManager();
-
 //console.log(productManager.getProducts());
 
 // Agregar producto
-productManager.addProduct({
-  title: "producto prueba",
-  description: "Este es un producto prueba",
-  price: 200,
-  thumbnail: "Sin imagen",
-  code: "abc123",
-  stock: 25,
-});
-
-// Agregar producto
-productManager.addProduct({
-  title: "producto prueba 1",
-  description: "Este es otro producto prueba",
-  price: 100,
-  thumbnail: "Sin imagen",
-  code: "423",
-  stock: 20,
-});
-
-
+productManager.addProduct({title: "producto prueba", description: "Este es un producto prueba", price: 200, thumbnail: "Sin imagen", code: "abc123", stock: 25});
+productManager.addProduct({title: "producto prueba 1", description: "Este es otro producto prueba", price: 100, thumbnail: "Sin imagen", code: "423", stock: 20});
 //console.log(productManager.getProducts());
 
 // Obtener producto por id (debería devolver el producto agregado)
