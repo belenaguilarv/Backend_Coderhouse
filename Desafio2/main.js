@@ -1,4 +1,4 @@
-/*const ProductManager = require('./ProductManager.js');
+const ProductManager = require('./ProductManager.js');
 
 const productManager = new ProductManager('products.json');
 
@@ -35,4 +35,3 @@ console.log(`Producto actualizado con id ${productIdToUpdate}: `, updatedProduct
 const productIdToDelete = 1;
 productManager.deleteProduct(productIdToDelete);
 console.log(`Producto eliminado con id ${productIdToDelete}`);
-*/

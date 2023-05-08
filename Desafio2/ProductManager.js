@@ -35,7 +35,7 @@ class ProductManager {
   /**
     Metodo que devuelve el arreglo con todos los productos creados 
     hasta ese momento
-    @returns {array} - Arreglo con los productos creados
+    @returns {object} - Arreglo con los productos creados
   */  
   getProducts() {
     try {
@@ -60,10 +60,18 @@ class ProductManager {
     return product;
   }
 
+/**
+    Metodo que debe actualiza los valores en el arreglo el producto que coincida con 
+    el id
+    @param {number} id - El identificador del producto que se esta buscando 
+    @param {object} fieldsToUpdate - Los campos a actualizar 
+    @returns {object / null} - Devuelve el objeto "updatedProduct" si se 
+    actualiza correctamente o "null" si el producto no se encuentra en la lista.
+  */
   updateProduct(id, fieldsToUpdate) {
     const products = this.getProducts();
-    const productIndex = products.findIndex((p) => p.id === id);
-    if (productIndex !== -1) {
+    const productIndex = products.findIndex((p) => p.id === id); // para encontrar el id del producto que deseo actualizar
+    if (productIndex !== -1) {      // si esta en la lista creo un nuevo producto
       const updatedProduct = {
         ...products[productIndex],
         ...fieldsToUpdate,
@@ -76,16 +84,26 @@ class ProductManager {
     return null;
   }
 
+
+  /**
+    Metodo que elimina el arreglo el producto que coincida con el id
+    @param {number} id - El identificador del producto que se esta buscando 
+  */
   deleteProduct(id) {
-    let products = this.getProducts();
-    products = products.filter((p) => p.id !== id);
-    this._saveProducts(products);
+    let products = this.getProducts();              // obtengo todos los productos
+    products = products.filter((p) => p.id !== id); // filtro para eliminar los que tengan el mismo id
+    this._saveProducts(products);                   // guardo los productos que quedan
   }
 
+/** 
+  Método privado de la clase ProductManager que se encarga de guardar los productos en un archivo 
+  utilizando el módulo fs de Node.js. 
+  @param {object} - Arreglo con los productos 
+*/
   _saveProducts(products) {
-    const productsString = JSON.stringify(products, null, 2);
-    fs.writeFileSync(this.path, productsString);
+    const productsString = JSON.stringify(products, null, 2); // convierte el arreglo a formato JSON
+    fs.writeFileSync(this.path, productsString); //escribir el archivo en la ruta especificada en la propiedad this.path de la instancia de ProductManager.
   }
 }
 
-//module.exports = ProductManager;
+module.exports = ProductManager;
