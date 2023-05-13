@@ -1,0 +1,10 @@
+{
+    "name": "product-server",
+    "version": "1.0.0",
+    "description": "A server for accessing product data",
+    "main": "app.js",
+    "dependencies": {
+      "express": "^4.17.1"
+    }
+  }
+  
