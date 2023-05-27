@@ -1,4 +1,4 @@
-const CartManager = require("../managers/cartManager")
+const CartManager = require("../CartManager")
 
 
 const cartController = {

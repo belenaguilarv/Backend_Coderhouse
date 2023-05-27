@@ -1,4 +1,4 @@
-const productManager = require("../managers/productManager")
+const productManager = require("../ProductManager")
 
 const productController = {
     index: function (req, res) {
