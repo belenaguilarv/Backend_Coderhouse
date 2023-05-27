@@ -1,0 +1,58 @@
+[
+    {
+      "id": 1,
+      "title": "Camiseta de algodón",
+      "description": "Camiseta de manga larga hecha de suave algodón.",
+      "price": 4980,
+      "thumbnails": "/ruta/camisetaAlgodon.jpg",
+      "code": "001",
+      "stock": 30,
+      "category": "Ropa",
+      "status": true
+    },
+    {
+      "id": 2,
+      "title": "Pantalones de jean",
+      "description": "Pantalones de jean bota ancha.",      
+      "price": 26900,
+      "thumbnails":"/ruta/jeans.jpg",
+      "code": "002",
+      "stock": 15,
+      "category": "Ropa",
+      "status": true
+    },
+    {
+      "id": 3,
+      "title": "Blusa con mangas",
+      "description": "Blusa de seda.",
+      "price": 7600,
+      "thumbnails": "/ruta/blusa.jpg",
+      "code": "003",
+      "stock": 28,
+      "category": "Ropa",
+      "status": true
+    },
+    {
+      "id": 4,
+      "title": "Chaqueta de cuero",
+      "description": "Chaqueta de cuero con cierres.",
+      "price": 47509,
+      "thumbnails": "/ruta/chqueta.jpg",
+      "code": "004",
+      "stock": 13,
+      "category": "Ropa",
+      "status": true
+    },
+    {
+      "id": 5,
+      "title": "Vestido de noche",
+      "description": "Vestido largo de noche con detalles.",
+      "price": 120100,
+      "thumbnails": "/ruta/vestido.jpg",
+      "code": "005",
+      "stock": 5,
+      "category": "Ropa",
+      "status": true
+    }
+  ]
+   

@@ -1,77 +1,69 @@
-const fs = require('fs');
-
+const fs = require("fs");
+const Product = require("./schemas/Product")
 class ProductManager {
-  constructor(path) {
-    this.path = path;
-  }
-
-  getProducts() {
-    try {
-      const products = fs.readFileSync(this.path, 'utf-8');
-      return JSON.parse(products);
-    } catch (err) {
-      console.log('Error al leer el archivo de productos: ', err);
-      return [];
+    #products
+    #path
+    constructor(path) {
+        this.#products = []
+        this.#path = path
+        if (!fs.existsSync(this.#path, "utf-8")) {
+            fs.writeFileSync(this.#path, "[]");
+        }
     }
-  }
+    addProduct(title, description, price, thumbnail, code, stock, category, status) {
+        this.#products = JSON.parse(fs.readFileSync(this.#path, "utf-8"))
+        if (title == undefined || description == undefined || price == undefined || code == undefined || stock == undefined || category == undefined) return { message: "Todos los campos son obligatorios. EXCEPTO THUMBNAIL" }
+        if (this.#products.find(p => p.code === code)) return { message: "Ya existe un producto con este codigo" }
+        if (isNaN(Number(price)) || isNaN(Number(stock))) return { message: "el precio y el stock deben ser de valor numérico" }
+        if (isNaN(price) || isNaN(stock)) return { message: "El precio y el stock deben ser de valores numéricos" }
+        if (!Array.isArray(thumbnail)) return { message: "La propiedad 'thumbnail' debe ser un array de rutas de imágenes" }
+        const latestId = this.#products[this.#products.length - 1].id
+        console.log(latestId)
 
-  /**
-    Metodo que debe buscar en el arreglo el producto que coincida con 
-    el id
-    @param {number} id - El identificador del producto que se esta buscando 
-    @returns {object / null} - Objeto con todas las propiedades del producto 
-                              si es encontrado, de lo contrario retorna null.
-  */
-  getProductById(id) {
-    const products = this.getProducts();
-    const product = products.find((p) => p.id === id);
-    return product;
-  }
+        const newProduct = new Product(latestId, title, description, Number(price), thumbnail, code, Number(stock), category, status)
+        this.#products.push(newProduct)
+        fs.writeFileSync(this.#path, JSON.stringify(this.#products))
 
-/**
-    Metodo que debe actualiza los valores en el arreglo el producto que coincida con 
-    el id
-    @param {number} id - El identificador del producto que se esta buscando 
-    @param {object} fieldsToUpdate - Los campos a actualizar 
-    @returns {object / null} - Devuelve el objeto "updatedProduct" si se 
-    actualiza correctamente o "null" si el producto no se encuentra en la lista.
-  */
-  updateProduct(id, fieldsToUpdate) {
-    const products = this.getProducts();
-    const productIndex = products.findIndex((p) => p.id === id); // para encontrar el id del producto que deseo actualizar
-    if (productIndex !== -1) {      // si esta en la lista creo un nuevo producto
-      const updatedProduct = {
-        ...products[productIndex],
-        ...fieldsToUpdate,
-        id,
-      };
-      products[productIndex] = updatedProduct;
-      this._saveProducts(products);
-      return updatedProduct;
+        return { message: "Producto Añadido", success: true }
     }
-    return null;
-  }
-
-
-  /**
-    Metodo que elimina el arreglo el producto que coincida con el id
-    @param {number} id - El identificador del producto que se esta buscando 
-  */
-  deleteProduct(id) {
-    let products = this.getProducts();              // obtengo todos los productos
-    products = products.filter((p) => p.id !== id); // filtro para eliminar los que tengan el mismo id
-    this._saveProducts(products);                   // guardo los productos que quedan
-  }
-
-/** 
-  Método privado de la clase ProductManager que se encarga de guardar los productos en un archivo 
-  utilizando el módulo fs de Node.js. 
-  @param {object} - Arreglo con los productos 
-*/
-  _saveProducts(products) {
-    const productsString = JSON.stringify(products, null, 2); // convierte el arreglo a formato JSON
-    fs.writeFileSync(this.path, productsString); //escribir el archivo en la ruta especificada en la propiedad this.path de la instancia de ProductManager.
-  }
+    getProducts(limit) {
+        this.#products = JSON.parse(fs.readFileSync(this.#path, "utf-8"))
+        if (limit) {
+            return { products: this.#products.slice(0, limit), success: true }
+        } else {
+            return { products: this.#products, success: true }
+        }
+    }
+    getProductById(pid) {
+        this.#products = JSON.parse(fs.readFileSync(this.#path, "utf-8"))
+        if (this.#products.find(p => p.id === pid)) {
+            const productFound = this.#products.find(p => p.id === pid)
+            return { product: productFound, success: true }
+        }
+        return { message: "No existe un producto con ese id" }
+    }
+    deleteProduct(pid) {
+        this.#products = JSON.parse(fs.readFileSync(this.#path, "utf-8"))
+        if (this.#products.find(p => p.id === pid)) {
+            this.#products.splice(this.#products.indexOf(this.#products.find(p => p.id === pid)), 1)
+            fs.writeFileSync(this.#path, JSON.stringify(this.#products))
+            return { message: "Producto Eliminado", success: true }
+        } else {
+            return { message: "No se encontró un producto con el id indicado" }
+        }
+    }
+    updateProduct(pid, newValues) {
+        this.#products = JSON.parse(fs.readFileSync(this.#path, "utf-8"))
+        if (newValues.id) return { message: "No puedes modificarle el id a un producto" }
+        else if (this.#products.find(p => p.id === pid)) {
+            const productFound = this.#products.find(p => p.id === pid)
+            Object.assign(productFound, newValues);
+            console.log(productFound)
+            fs.writeFileSync(this.#path, JSON.stringify(this.#products))
+            return { message: "Producto actualizado", productUpdated: productFound, success: true }
+        } else {
+            return { message: "No se encontró un producto con el id indicado" }
+        }
+    }
 }
-
-module.exports = ProductManager;
+module.exports = productManager = new ProductManager("./src/db/products.json")

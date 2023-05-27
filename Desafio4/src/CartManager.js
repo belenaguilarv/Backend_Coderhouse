@@ -1,5 +1,5 @@
 const fs = require("fs");
-const Cart = require("../schemas/Cart")
+const Cart = require("./schemas/Cart")
 const productManager = require("./ProductManager")
 
 class CartManager {
@@ -51,4 +51,4 @@ class CartManager {
     }
 }
 
-module.exports = cartManager = new CartManager("./src/db/carts.json")
+module.exports = CartManager = new CartManager("./src/db/carts.json")
