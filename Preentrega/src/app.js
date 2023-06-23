@@ -1,7 +1,7 @@
-const express = require("express");
-const handlebars = require("express-handlebars");
+const express = require('express');
+const handlebars = require('express-handlebars');
 const { Server } = require("socket.io")
-const productManager = require("./dao/managersFS/productManager")
+const productManager = require("./dao/managers/productManager")
 require("./utils/dbconnection")
 const app = express()
 const httpServer = app.listen(8080, () => console.log("Server en puerto 8080"))
