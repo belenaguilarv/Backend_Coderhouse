@@ -1,0 +1,30 @@
+<div>
+    <div class="formContainer">
+        <h3>Crear Nuevo Producto</h3>
+        <form id="createNewProductFrom">
+            <label>Nombre</label>
+            <input required placeholder="nombre del producto" name="title" type="text">
+            <label>Descripcion</label>
+            <textarea required placeholder="descripcion" name="description"></textarea>
+            <label>Imagen</label>
+            <input required placeholder="imagen" name="thumbnail" type="text">
+            <label>Stock</label>
+            <input required placeholder="stock" name="stock" type="number">
+            <label>Precio</label>
+            <input required placeholder="precio" name="price" type="number">
+            <label>Codigo</label>
+            <input required placeholder="codigo del producto" name="code" type="number">
+            <label>Categoria</label>
+            <input required placeholder="categoria" name="category" type="text">
+            <label>Estado</label>
+            <input name="status" type="checkbox">
+            <button class="greenButton" type="submit">Crear Producto</button>
+        </form>
+    </div>
+    <p id="messageParagrahp"></p>
+    <div id="productsContainer" class="productsContainer">
+
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/public/js/index.js"></script>

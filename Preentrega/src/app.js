@@ -44,7 +44,6 @@ app.get("/", (req, res) => {
 })
 
 app.use("/chat", chatRouter)
-//app.use("/messages", messagesRouter)
 app.use("/products", productsRouter)
 app.use("/carts", cartsRouter)
 app.get("/realTimeProducts", (req, res) => { return res.render("realTimeProducts", { pageTitle: "RTProucts" }) })
